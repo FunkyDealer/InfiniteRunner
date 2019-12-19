@@ -62,7 +62,7 @@ class Game : SurfaceView {
         player.update(gameTime)
         floorManager.update(gameTime, player.speed * (1 + (level * 0.1f)))
         thirstBar.update(gameTime)
-        collectables.update(gameTime, player.speed)
+        collectables.update(gameTime, player.speed * (1 + (level * 0.1f)))
 
 
     }

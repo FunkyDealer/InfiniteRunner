@@ -30,7 +30,10 @@ class Player : GameObject {
     var colliding : Boolean = false
     var jumpTimer = 0f
     var jumping = true
+    var doubleJumping = false
     var falling = false
+    var doubleJumps = 0
+    var maxDoubleJumps = 1
 
     enum class Animation {
         RUNNING(0),
@@ -76,24 +79,25 @@ class Player : GameObject {
 
         nextPos = position + direction * jumpSpeed * gameTime.Delta()
 
-        if (nextPos.y > minY && nextPos.y < maxY - frameSize.y && nextPos.x > minX && nextPos.x < maxX - frameSize.x) //Check if next pos is still inside The SCreen
+        if (nextPos.y < maxY - frameSize.y && nextPos.x > minX && nextPos.x < maxX - frameSize.x) //Check if next pos is still inside The SCreen
         {
             if (nextPos.y < maxY - (frameSize.y + game!!.floorManager.floorList[0].frameSize.y)) { //Check if nextPos is not inside the floor
                 position = nextPos
             }
             else {
                 falling = false
+                doubleJumps = 0
             }
         }
         //if (canMove) { position = nextPos; nextPos = position }
 
-        if (position.y < minY) position.y = minY  //bitmap.height
+        //if (position.y < minY) position.y = minY  //bitmap.height
         if (position.y > maxY - frameSize.y) position.y = maxY - frameSize.y //Works
         if (position.x < minX) position.x = minX + bitmap.width
         if (position.x > maxX - frameSize.x) position.x = maxX - frameSize.x //works
 
 
-        if (jumping || falling) {
+        if (jumping || falling || doubleJumping) {
             currentAnimation = Animation.JUMPING.Nr
         } else currentAnimation = Animation.RUNNING.Nr
 
@@ -114,6 +118,15 @@ class Player : GameObject {
                 jumpForce = Vector2.Zero()
             }
         }
+         if (doubleJumping && jumpForce.y < 0) {
+            jumpForce += Vector2.Down()
+        } else if (doubleJumping)  {
+            jumpForce = Vector2.Zero()
+            doubleJumping = false
+            falling = true
+        }
+
+
     }
 
     override fun draw(canvas : Canvas, paint : Paint) {
@@ -139,15 +152,22 @@ class Player : GameObject {
                 jumping = true
                 jumpForce = game!!.gravity * -2f
             }
+            if (!jumping && falling && !doubleJumping && doubleJumps < maxDoubleJumps) {
+                doubleJumping = true
+                falling = false
+                jumpForce = game!!.gravity * -3f
+                doubleJumps++
+            }
             //if (!inAir)
             //jumpForce = game!!.gravity * -5f
         }
 
     fun MotionUp() {
-        jumping = false
-        falling = true
-        jumpForce = Vector2.Zero()
-        jumpTimer = 0f
+        if (!doubleJumping)
+            jumping = false
+            falling = true
+            jumpForce = Vector2.Zero()
+            jumpTimer = 0f
     }
 
 }
