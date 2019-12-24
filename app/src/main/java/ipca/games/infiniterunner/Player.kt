@@ -79,19 +79,16 @@ class Player : GameObject {
 
         nextPos = position + direction * jumpSpeed * gameTime.Delta()
 
-        if (nextPos.y < maxY - frameSize.y && nextPos.x > minX && nextPos.x < maxX - frameSize.x) //Check if next pos is still inside The SCreen
-        {
+
             if (nextPos.y < maxY - (frameSize.y + game!!.floorManager.floorList[0].frameSize.y)) { //Check if nextPos is not inside the floor
                 position = nextPos
             }
             else {
-                falling = false
-                doubleJumps = 0
+                if (falling) falling = false
+                if (doubleJumps > 0) doubleJumps = 0
             }
-        }
         //if (canMove) { position = nextPos; nextPos = position }
 
-        //if (position.y < minY) position.y = minY  //bitmap.height
         if (position.y > maxY - frameSize.y) position.y = maxY - frameSize.y //Works
         if (position.x < minX) position.x = minX + bitmap.width
         if (position.x > maxX - frameSize.x) position.x = maxX - frameSize.x //works
@@ -104,9 +101,6 @@ class Player : GameObject {
         getCurrentFrame()
         collider.set(whereToDraw.toRect())
 /*
-        if (jumpForce.y < 0) {
-        jumpForce += Vector2.Down()
-        } else jumpForce = Vector2.Zero()
 */
 
         if (jumping) { //Jumping Logic
@@ -158,8 +152,7 @@ class Player : GameObject {
                 jumpForce = game!!.gravity * -3f
                 doubleJumps++
             }
-            //if (!inAir)
-            //jumpForce = game!!.gravity * -5f
+
         }
 
     fun MotionUp() {

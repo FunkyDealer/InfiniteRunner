@@ -38,7 +38,7 @@ class ThirstBar : GameObject {
         }
 
 
-        if (thirstValue < 1) {
+        if (thirstValue < 1 && game!!.playing) {
             game!!.gameOver()
         }
 

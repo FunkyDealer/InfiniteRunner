@@ -4,9 +4,16 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.util.Log
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import ipca.games.infiniterunner.Collectables.CollectablesManager
 import ipca.games.infiniterunner.EngineFiles.GameActivity
 import ipca.games.infiniterunner.EngineFiles.GameTime
@@ -20,6 +27,7 @@ class Game : SurfaceView {
     var floorManager : FloorManager
 
     var score : Int = 0
+    var scoreTimer : Float = 0f
     var screenSize : Vector2
     public var gravity : Vector2 = Vector2(0f, 5f)
     var fps : Long = 0
@@ -31,39 +39,55 @@ class Game : SurfaceView {
     var level : Int
     var levelTimer : Float
 
+    var playing : Boolean
+    var gameOver : Boolean
+
+
+
     constructor(context: Context?, screenSize : Vector2) : super(context) {
 
         this.screenSize = screenSize
         player = Player(context!!, this, Vector2(screenSize.x / 6, 300f))
         floorManager = FloorManager(context, screenSize, this)
-        thirstBar = ThirstBar(context, this, Vector2(0f,0f), 10)
+        thirstBar = ThirstBar(context, this, Vector2(0f,0f), 3)
         floorSize = floorManager.floorList[0].frameSize
         collectables = CollectablesManager(context, screenSize, this)
-        level = 1
+        level = 0
         levelTimer = 0f
+
+        playing = true
+        gameOver = false
     }
 
     /*
      * This is the Update Function, where objects are updated
      */
     fun update(gameTime: GameTime) {
-        levelTimer += gameTime.Delta()
-        if (levelTimer > 30) {
-            level++
-            levelTimer = 0f
+        if (playing) {
+            levelTimer += gameTime.Delta()
+            if (levelTimer > 30) {
+                level++
+                levelTimer = 0f
+            }
+
+            scoreTimer += gameTime.Delta()
+            if (scoreTimer > 0.5f) {
+                score += 1 + level
+                scoreTimer = 0f
+            }
+
+
+            when (gameTime.ElapsedGameTime.toMillis() > 0) {
+                (true) -> fps = 1000 / gameTime.ElapsedGameTime.toMillis()
+                (false) -> fps = 0
+            }
+
+
+            player.update(gameTime)
+            floorManager.update(gameTime, player.speed * (1 + (level * 0.1f)))
+            thirstBar.update(gameTime)
+            collectables.update(gameTime, player.speed * (1 + (level * 0.1f)))
         }
-
-        when (gameTime.ElapsedGameTime.toMillis() > 0) {
-            (true) -> fps = 1000 / gameTime.ElapsedGameTime.toMillis()
-            (false) -> fps = 0
-        }
-
-
-        player.update(gameTime)
-        floorManager.update(gameTime, player.speed * (1 + (level * 0.1f)))
-        thirstBar.update(gameTime)
-        collectables.update(gameTime, player.speed * (1 + (level * 0.1f)))
-
 
     }
 
@@ -85,7 +109,15 @@ class Game : SurfaceView {
         canvas.drawText("fps: " + fps, 0f, 60.0f, paint)
         canvas.drawText("gametime: " + gameTime.Delta().toString(), screenSize.x / 2f, 310.0f, paint)
         canvas.drawText("pressing Down: " + pressedDown, screenSize.x / 2f, 360.0f, paint)
-        canvas.drawText("Level: " + level, screenSize.x - 300, screenSize.y - 50, paint)
+        canvas.drawText("Level: " + (level + 1), screenSize.x - 300, screenSize.y - 50, paint)
+        canvas.drawText("Score: " + score, screenSize.x - 300, screenSize.y - 100, paint)
+
+        if (gameOver) {
+            paint.textSize = 100f
+
+            canvas.drawText("GAME OVER", screenSize.x / 2, screenSize.y / 2, paint)
+        }
+
 
     }
 
@@ -106,7 +138,28 @@ class Game : SurfaceView {
 
 
     fun gameOver() {
-        //todo
+        playing = false
+        gameOver = true
+        saveScoreToFireBase(score)
     }
 
+
+    fun saveScoreToFireBase(Score : Int) {
+
+        var uploadScore = Score(Score)
+        val database = FirebaseDatabase.getInstance().reference
+
+        Log.d("score: ", "" + Score)
+
+        database.child("players").setValue(uploadScore)
+            .addOnSuccessListener {
+                Toast.makeText(context, "Upload Sucessful", Toast.LENGTH_LONG)
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Upload Failed", Toast.LENGTH_LONG)
+            }
+
+
+
+    }
 }

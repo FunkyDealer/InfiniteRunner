@@ -40,7 +40,7 @@ class refreshment : Collectables {
 
         direction = Vector2.Left() * playerSpeed
 
-        position += direction * gameTime.Delta()
+        position += direction *  gameTime.Delta()
 
 
         getCurrentFrame()

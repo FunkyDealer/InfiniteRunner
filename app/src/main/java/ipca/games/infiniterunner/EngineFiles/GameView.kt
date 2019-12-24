@@ -88,7 +88,7 @@ class GameView: SurfaceView, Runnable {
 
     fun control() {
 
-        Thread.sleep(16, 666)
+        Thread.sleep(16)
 
 
     }

@@ -43,9 +43,15 @@ class CollectablesManager {
         for (c in CollectablesList) {
             if (c.collider.intersect(game.player.collider)) {
                 c.exists = false
-                game.thirstBar.timer = 0f
-                if (c is refreshment && game.thirstBar.thirstValue < 10)game.thirstBar.thirstValue++
-                else if (c is Sugar && game.thirstBar.thirstValue > 0) game.thirstBar.thirstValue--
+                if (c is refreshment && game.thirstBar.thirstValue < 10) {
+                    game.thirstBar.thirstValue++
+                    game.score += 50
+                    game.thirstBar.timer = 0f
+                }
+                else if (c is Sugar && game.thirstBar.thirstValue > 0) {
+                    game.thirstBar.thirstValue--
+                    if (game.score > 0) game.score -= 25
+                }
             }
         }
 

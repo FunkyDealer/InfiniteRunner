@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "306544814346",
+    "firebase_url": "https://infiniterunner-b80b1.firebaseio.com",
+    "project_id": "infiniterunner-b80b1",
+    "storage_bucket": "infiniterunner-b80b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306544814346:android:39ddc39afcdef70bdcb2f3",
+        "android_client_info": {
+          "package_name": "ipca.games.infiniterunner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306544814346-70umum1sg5c9m617kr8evusk6046jala.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtyR6pr9zWpj1HbxZ9imzLcCox9XB8wak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "306544814346-70umum1sg5c9m617kr8evusk6046jala.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
