@@ -21,6 +21,7 @@ class Game : SurfaceView {
     var runnerGame : RunnerGame
     var gameOverScreen : GameOverScreen
     var scoreManager : ScoreManager
+    var mainMenu : MainMenu
     var online : Boolean
 
 
@@ -34,6 +35,7 @@ class Game : SurfaceView {
 
         runnerGame = RunnerGame(context, screenSize, this, "mainGame", true)
         gameOverScreen = GameOverScreen(this, screenSize, "GameOver", false)
+        mainMenu = MainMenu(this, screenSize, "MainMenu", false)
 
     }
 
@@ -48,7 +50,8 @@ class Game : SurfaceView {
         }
 
         if (runnerGame.updating) runnerGame.Update(gameTime)
-        if (gameOverScreen.updating) gameOverScreen.Update(gameTime)
+        else if (gameOverScreen.updating) gameOverScreen.Update(gameTime)
+        else if (mainMenu.updating) mainMenu.Update(gameTime)
 
     }
 
@@ -60,7 +63,8 @@ class Game : SurfaceView {
         canvas.drawColor(Color.BLACK)
 
         if (runnerGame.drawing) runnerGame.Draw(canvas, paint, gameTime)
-        if (gameOverScreen.drawing) gameOverScreen.Draw(canvas, paint, gameTime)
+        else if (gameOverScreen.drawing) gameOverScreen.Draw(canvas, paint, gameTime)
+        else if (mainMenu.drawing) mainMenu.Draw(canvas, paint, gameTime)
 
         paint.color = Color.GREEN
         paint.textSize = 50f

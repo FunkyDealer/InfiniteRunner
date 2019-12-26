@@ -56,16 +56,16 @@ class ScoreManager {
     fun saveScoreToFireBase() {
 
         var uploadScore = currentScore
-        val database = FirebaseDatabase.getInstance().reference
+        val database = FirebaseDatabase.getInstance() //.reference
 
-       /* val myRef = database.getReference("Players")
+        val myRef = database.getReference("Players")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
             .child("Score")
 
 
-        myRef.push().setValue(uploadScore)*/
+        myRef.push().setValue(uploadScore)
 
-        database.child("players").setValue(uploadScore) //.child(FirebaseAuth.getInstance().currentUser!!.uid)
+        //database.child("players").setValue(uploadScore) //.child(FirebaseAuth.getInstance().currentUser!!.uid)
 
 
     }
