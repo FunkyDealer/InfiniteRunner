@@ -43,12 +43,12 @@ class GameView: SurfaceView, Runnable {
             var timeNow = Instant.now()
 
             UpdategameTime.update(Duration.between(lastUpdate, Instant.now()))
-            update(UpdategameTime) //Update the frame
+            Update(UpdategameTime) //Update the frame
 
 
 
             DrawGameTime.update(Duration.between(lastUpdate, Instant.now()))
-            draw(DrawGameTime) //Draw the Frame
+            Draw(DrawGameTime) //Draw the Frame
             lastUpdate = timeNow
 
             control()
@@ -59,15 +59,15 @@ class GameView: SurfaceView, Runnable {
 
     }
 
-    fun update(gameTime: GameTime) {
+    fun Update(gameTime: GameTime) {
 
 
-        game.update(gameTime)
+        game.Update(gameTime)
 
 
     }
 
-    fun draw(gameTime: GameTime) {
+    fun Draw(gameTime: GameTime) {
 
         if (surfaceHolder.surface.isValid) {
 
@@ -76,7 +76,7 @@ class GameView: SurfaceView, Runnable {
 
 
 
-            game.draw(canvas, paint, gameTime)
+            game.Draw(canvas, paint, gameTime)
 
 
 

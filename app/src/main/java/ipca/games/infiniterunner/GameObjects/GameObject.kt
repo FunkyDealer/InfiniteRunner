@@ -1,16 +1,16 @@
-package ipca.games.infiniterunner
+package ipca.games.infiniterunner.GameObjects
 
 import android.content.Context
 import android.graphics.*
 import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Vector2
-import java.util.*
+import ipca.games.infiniterunner.RunnerGame
 
 open class GameObject {
 
 
     lateinit var bitmap : Bitmap
-    var game : Game? = null
+    var game : RunnerGame? = null
 
     var position : Vector2
     var direction : Vector2
@@ -30,14 +30,14 @@ open class GameObject {
 
     // A rectangle to define an area of the
     // sprite sheet that represents 1 frame
-    var frameToDraw = RectF( //Frame to draw Rectangle
+    var frameToDraw = RectF( //Frame to Draw Rectangle
         0f,
         0f,
         frameSize.x,
         frameSize.y
     )
 
-    var whereToDraw = RectF( //Where to draw Rectangle
+    var whereToDraw = RectF( //Where to Draw Rectangle
         0f,
         0f,
         0f + frameSize.x,
@@ -50,12 +50,12 @@ open class GameObject {
 
     lateinit var collider : Rect
 
-    constructor(context: Context, game: Game?, position: Vector2) {
+    constructor(context: Context, game: RunnerGame?, position: Vector2, screenSize : Vector2) {
         this.game = game
         this.position = position
         direction = Vector2.Zero()
 
-        borderSize = game!!.screenSize
+        borderSize = screenSize
     }
 
     open fun update(gameTime: GameTime) {
@@ -86,7 +86,7 @@ open class GameObject {
             }
         }
 
-        //update the left and right values of the source of
+        //Update the left and right values of the source of
         //the next frame on the spritesheet
         var left = currentFrame * frameSize.x
         var right = left + frameSize.x

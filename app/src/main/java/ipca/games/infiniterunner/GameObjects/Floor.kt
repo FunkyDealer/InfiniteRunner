@@ -1,19 +1,22 @@
-package ipca.games.infiniterunner
+package ipca.games.infiniterunner.GameObjects
 
 import android.content.Context
 import android.graphics.*
 import androidx.core.graphics.toRect
 import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Vector2
-import java.util.*
+import ipca.games.infiniterunner.R
+import ipca.games.infiniterunner.RunnerGame
 
 class Floor : GameObject {
 
     var colliding = false
 
 
-    constructor(context: Context, game: Game?, position: Vector2) : super(context, game, position) {
-        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.floor)
+    constructor(context: Context, game: RunnerGame?, position: Vector2, screenSize : Vector2) : super(context, game, position, screenSize) {
+        bitmap = BitmapFactory.decodeResource(context.resources,
+            R.drawable.floor
+        )
 
         frameCount = 1
         animationCount = 1
@@ -54,7 +57,7 @@ class Floor : GameObject {
         else paint.alpha = 255
 
 
-        canvas.drawBitmap(bitmap!!, frameToDraw.toRect(), whereToDraw, paint) //draw floor
+        canvas.drawBitmap(bitmap, frameToDraw.toRect(), whereToDraw, paint) //Draw floor
     }
 
 }

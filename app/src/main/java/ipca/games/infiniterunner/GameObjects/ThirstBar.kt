@@ -1,4 +1,4 @@
-package ipca.games.infiniterunner
+package ipca.games.infiniterunner.GameObjects
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -7,6 +7,8 @@ import android.graphics.Paint
 import androidx.core.graphics.toRect
 import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Vector2
+import ipca.games.infiniterunner.R
+import ipca.games.infiniterunner.RunnerGame
 
 class ThirstBar : GameObject {
 
@@ -14,10 +16,12 @@ class ThirstBar : GameObject {
     var thirstValue : Int
     var timer : Float = 0f
 
-    constructor(context: Context, game: Game?, position: Vector2, thirstValue: Int) : super(context, game, position) {
+    constructor(context: Context, game: RunnerGame?, position: Vector2, thirstValue: Int, screenSize : Vector2) : super(context, game, position, screenSize) {
         this.thirstValue = thirstValue
 
-        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.water)
+        bitmap = BitmapFactory.decodeResource(context.resources,
+            R.drawable.water
+        )
 
         frameCount = 1
         animationCount = 1
@@ -38,7 +42,7 @@ class ThirstBar : GameObject {
         }
 
 
-        if (thirstValue < 1 && game!!.playing) {
+        if (thirstValue < 1 && game!!.updating) {
             game!!.gameOver()
         }
 
@@ -48,7 +52,7 @@ class ThirstBar : GameObject {
 
         for (i in 0 until thirstValue) {
             updateWhere2Draw(i)
-            canvas.drawBitmap(bitmap!!, frameToDraw.toRect(), whereToDraw, paint) //Player
+            canvas.drawBitmap(bitmap, frameToDraw.toRect(), whereToDraw, paint) //Player
         }
 
     }

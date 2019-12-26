@@ -6,24 +6,26 @@ import android.graphics.Paint
 import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Vector2
 import ipca.games.infiniterunner.Game
+import ipca.games.infiniterunner.RunnerGame
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CollectablesManager {
 
 
 
     var CollectablesList : MutableList<Collectables> = ArrayList<Collectables>()
-    val game : Game
+    val game : RunnerGame
     var timer : Float = 0f
     var generator = Random()
     val context : Context?
+    val screenSize : Vector2
 
 
-    constructor(context: Context?, screenSize : Vector2, game: Game) {
+    constructor(context: Context?, screenSize : Vector2, game: RunnerGame) {
 
         this.game = game
         this.context = context
+        this.screenSize = screenSize
 
     }
 
@@ -32,10 +34,10 @@ class CollectablesManager {
 
         if (timer > 4) { //
             for (i in 0 until (generator.nextInt(3) + 1)) {
-                var pos = Vector2(game.screenSize.x, (game.screenSize.y - game.floorSize.y) * generator.nextDouble().toFloat())
+                var pos = Vector2(screenSize.x, (screenSize.y - game.floorSize.y) * generator.nextDouble().toFloat())
                 var rng = generator.nextBoolean()
-               if (rng) CollectablesList.add(refreshment(context!!, game, pos))
-                else CollectablesList.add(Sugar(context!!, game, pos))
+               if (rng) CollectablesList.add(refreshment(context!!, game, pos, screenSize))
+                else CollectablesList.add(Sugar(context!!, game, pos, screenSize))
             }
             timer = 0f
         }
@@ -45,12 +47,12 @@ class CollectablesManager {
                 c.exists = false
                 if (c is refreshment && game.thirstBar.thirstValue < 10) {
                     game.thirstBar.thirstValue++
-                    game.score += 50
+                    game.ScoreMan().addCurrentScore(50)
                     game.thirstBar.timer = 0f
                 }
                 else if (c is Sugar && game.thirstBar.thirstValue > 0) {
                     game.thirstBar.thirstValue--
-                    if (game.score > 0) game.score -= 25
+                    if (game.ScoreMan().getCurrentScore() > 0) game.ScoreMan().subtractCurrentScore(25)
                 }
             }
         }

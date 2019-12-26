@@ -7,15 +7,13 @@ import android.graphics.Paint
 import androidx.core.graphics.toRect
 import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Vector2
-import ipca.games.infiniterunner.Game
-import ipca.games.infiniterunner.GameObject
 import ipca.games.infiniterunner.R
-import java.util.*
+import ipca.games.infiniterunner.RunnerGame
 
 class refreshment : Collectables {
 
 
-    constructor(context: Context, game: Game?, position: Vector2) : super(context, game, position) {
+    constructor(context: Context, game: RunnerGame?, position: Vector2, screenSize : Vector2) : super(context, game, position, screenSize) {
 
         bitmap = BitmapFactory.decodeResource(context.resources,
             R.drawable.refreshment

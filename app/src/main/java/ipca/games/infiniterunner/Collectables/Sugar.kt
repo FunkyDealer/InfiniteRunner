@@ -9,11 +9,12 @@ import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Vector2
 import ipca.games.infiniterunner.Game
 import ipca.games.infiniterunner.R
+import ipca.games.infiniterunner.RunnerGame
 
 class Sugar : Collectables {
 
 
-    constructor(context: Context, game: Game?, position: Vector2) : super(context, game, position) {
+    constructor(context: Context, game: RunnerGame?, position: Vector2, screenSize : Vector2) : super(context, game, position, screenSize) {
 
         bitmap = BitmapFactory.decodeResource(context.resources,
             R.drawable.sugar

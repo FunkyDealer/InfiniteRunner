@@ -1,16 +1,12 @@
-package ipca.games.infiniterunner
+package ipca.games.infiniterunner.GameObjects
 
-import android.R.attr.*
 import android.content.Context
 import android.graphics.*
-import android.graphics.RectF
-import android.view.MotionEvent
-import android.view.SurfaceView
 import androidx.core.graphics.toRect
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Vector2
-import java.text.FieldPosition
+import ipca.games.infiniterunner.R
+import ipca.games.infiniterunner.RunnerGame
 
 
 class Player : GameObject {
@@ -47,9 +43,11 @@ class Player : GameObject {
     }
 
 
-    constructor(context: Context, game: Game, position: Vector2) : super(context, game, position) {
+    constructor(context: Context, game: RunnerGame, position: Vector2, screenSize : Vector2) : super(context, game, position, screenSize) {
 
-        bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.player)
+        bitmap = BitmapFactory.decodeResource(context.resources,
+            R.drawable.player
+        )
 
         frameCount = 2
         animationCount = 2
@@ -60,7 +58,7 @@ class Player : GameObject {
 
         currentAnimation = Animation.JUMPING.Nr
 
-        SetUp() //Sets up where to draw and What to draw
+        SetUp() //Sets up where to Draw and What to Draw
 
         maxY = borderSize.y
         maxX = borderSize.x
@@ -125,7 +123,7 @@ class Player : GameObject {
 
     override fun draw(canvas : Canvas, paint : Paint) {
 
-        canvas.drawBitmap(bitmap!!, frameToDraw.toRect(), whereToDraw, paint) //Player
+        canvas.drawBitmap(bitmap, frameToDraw.toRect(), whereToDraw, paint) //Player
 
         if (colliding) paint.color = Color.RED
         else paint.color = Color.GREEN
@@ -133,11 +131,11 @@ class Player : GameObject {
         //paint.color = Color.GREEN
         paint.textSize = 40f
 
-        canvas.drawText("dir: " + direction, game!!.screenSize!!.x / 2f, 110.0f, paint)
-        canvas.drawText("jump: " + jumpForce, game!!.screenSize!!.x / 2f, 150.0f, paint)
-        canvas.drawText("jumping: " + jumping, game!!.screenSize!!.x / 2f, 190.0f, paint)
-        canvas.drawText("falling: " + falling, game!!.screenSize!!.x / 2f, 230.0f, paint)
-        canvas.drawText("bitmap: " + frameSize.toString(), game!!.screenSize!!.x / 2f, 270.0f, paint)
+        canvas.drawText("dir: " + direction, borderSize.x / 2f, 110.0f, paint)
+        canvas.drawText("jump: " + jumpForce, borderSize.x / 2f, 150.0f, paint)
+        canvas.drawText("jumping: " + jumping, borderSize.x / 2f, 190.0f, paint)
+        canvas.drawText("falling: " + falling, borderSize.x / 2f, 230.0f, paint)
+        canvas.drawText("bitmap: " + frameSize.toString(), borderSize.x / 2f, 270.0f, paint)
 
     }
 
