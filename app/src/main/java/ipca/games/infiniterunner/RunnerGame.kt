@@ -111,4 +111,19 @@ class RunnerGame : Scene {
         return game.scoreManager
     }
 
+    fun reboot(scene: Scene) {
+        scene.SwitchActive()
+        game.scoreManager.reboot()
+        collectables.reboot()
+        player.reboot()
+        thirstBar.reboot()
+
+
+        level = 0
+        levelTimer = 0f
+
+       this.SwitchActive()
+
+    }
+
 }

@@ -45,7 +45,7 @@ class CollectablesManager {
         for (c in CollectablesList) {
             if (c.collider.intersect(game.player.collider)) {
                 c.exists = false
-                if (c is refreshment && game.thirstBar.thirstValue < 10) {
+                if (c is refreshment && game.thirstBar.thirstValue < game.thirstBar.initialValue) {
                     game.thirstBar.thirstValue++
                     game.ScoreMan().addCurrentScore(50)
                     game.thirstBar.timer = 0f
@@ -74,4 +74,12 @@ class CollectablesManager {
         }
 
     }
+
+
+    fun reboot() {
+        timer = 0f
+        CollectablesList.clear()
+    }
+
+
 }

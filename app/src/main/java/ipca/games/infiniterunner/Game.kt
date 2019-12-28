@@ -81,6 +81,7 @@ class Game : SurfaceView {
     pressedDown = false
 
     if (runnerGame.updating) runnerGame.MotionEventUp()
+    if (gameOverScreen.updating) gameOverScreen.MotionEventUp()
 
     }
 
@@ -88,6 +89,7 @@ class Game : SurfaceView {
         pressedDown = true
 
         if (runnerGame.updating) runnerGame.MotionEventDown()
+        if (gameOverScreen.updating) gameOverScreen.MotionEventDown()
 
     }
 

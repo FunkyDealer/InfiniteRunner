@@ -42,11 +42,9 @@ open class Scene {
 
     public fun SwitchActive() {
         if (updating && drawing) {
-            updating = false
-            drawing = false
+            SetActive(false)
         } else {
-            updating = true
-            drawing = true
+            SetActive(true)
         }
     }
 

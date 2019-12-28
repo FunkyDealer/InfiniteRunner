@@ -15,9 +15,11 @@ class ThirstBar : GameObject {
 
     var thirstValue : Int
     var timer : Float = 0f
+    var initialValue : Int
 
     constructor(context: Context, game: RunnerGame?, position: Vector2, thirstValue: Int, screenSize : Vector2) : super(context, game, position, screenSize) {
         this.thirstValue = thirstValue
+        this.initialValue = thirstValue
 
         bitmap = BitmapFactory.decodeResource(context.resources,
             R.drawable.water
@@ -54,18 +56,21 @@ class ThirstBar : GameObject {
             updateWhere2Draw(i)
             canvas.drawBitmap(bitmap, frameToDraw.toRect(), whereToDraw, paint) //Player
         }
-
     }
 
     fun updateWhere2Draw(i : Int) {
-        //position.x += (i * frameSize.x)
-
         whereToDraw.set(
             position.x + (i * frameSize.x),
             position.y,
             position.x + frameSize.x + (i * frameSize.x),
             position.y + frameSize.y
         )
+    }
+
+    fun reboot() {
+        timer = 0f
+        thirstValue = initialValue
+
     }
 
 }

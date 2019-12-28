@@ -93,4 +93,9 @@ class ScoreManager {
     public fun subtractCurrentScore(value : Int) { //Substract from the current Score
         currentScore.score -=  value
     }
+
+
+    public fun reboot() {
+        currentScore.score = 0
+    }
 }

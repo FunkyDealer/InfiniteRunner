@@ -30,6 +30,7 @@ class Player : GameObject {
     var falling = false
     var doubleJumps = 0
     var maxDoubleJumps = 1
+    var startingPos : Vector2
 
     enum class Animation {
         RUNNING(0),
@@ -48,6 +49,7 @@ class Player : GameObject {
         bitmap = BitmapFactory.decodeResource(context.resources,
             R.drawable.player
         )
+        startingPos = position
 
         frameCount = 2
         animationCount = 2
@@ -66,6 +68,14 @@ class Player : GameObject {
 
 
         collider = whereToDraw.toRect()
+    }
+
+    fun reboot() {
+
+        currentAnimation = Animation.JUMPING.Nr
+        position = startingPos
+        direction = Vector2.Zero()
+
     }
 
     override fun update(gameTime: GameTime) {
