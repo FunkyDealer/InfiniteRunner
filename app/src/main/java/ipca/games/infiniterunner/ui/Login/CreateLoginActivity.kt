@@ -45,7 +45,8 @@ class CreateLoginActivity : AppCompatActivity() {
     }
 
     fun CreateLogin(email : String, inPassword : String, inPasswordConfirm : String) {
-
+if (email != "" && inPassword != "" && inPasswordConfirm != "") {
+    if (inPassword == inPasswordConfirm) {
         auth.createUserWithEmailAndPassword(email, inPassword)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -57,13 +58,17 @@ class CreateLoginActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@CreateLoginActivity, GameActivity::class.java)
-                    startActivity(intent)
+                    Toast.makeText(baseContext, "Email not valid.", Toast.LENGTH_SHORT).show()
                 }
 
                 // ...
             }
+    } else {
+        Toast.makeText(baseContext, "the 2 passwords are not the same", Toast.LENGTH_SHORT).show()
+    }
+} else {
+    Toast.makeText(baseContext, "You must fill all fields!", Toast.LENGTH_SHORT).show()
+}
     }
 
 

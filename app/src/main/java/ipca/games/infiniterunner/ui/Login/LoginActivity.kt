@@ -43,6 +43,11 @@ class LoginActivity : AppCompatActivity() {
                 )
         }
 
+        createNewButton.setOnClickListener {
+            val intent = Intent(this@LoginActivity, CreateLoginActivity::class.java)
+            startActivity(intent)
+        }
+
         val prefs = PreferenceManager.getDefaultSharedPreferences(this@LoginActivity)
         var usernameStored = prefs.getString("username", "")
         var passwordStored = prefs.getString("password", "")
