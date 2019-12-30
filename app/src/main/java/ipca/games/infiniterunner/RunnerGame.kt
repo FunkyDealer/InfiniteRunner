@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import ipca.games.infiniterunner.Collectables.CollectablesManager
+import ipca.games.infiniterunner.GameObjects.Collectables.CollectablesManager
 import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Scene
 import ipca.games.infiniterunner.EngineFiles.Vector2
@@ -65,9 +65,9 @@ class RunnerGame : Scene {
 
 
 
-            player.update(gameTime)
+            player.Update(gameTime)
             floorManager.update(gameTime, player.speed * (1 + (level * 0.1f)))
-            thirstBar.update(gameTime)
+            thirstBar.Update(gameTime)
             collectables.update(gameTime, player.speed * (1 + (level * 0.1f)))
 
     }
@@ -75,10 +75,10 @@ class RunnerGame : Scene {
     override fun Draw(canvas : Canvas, paint : Paint, gameTime: GameTime) {
         canvas.drawColor(Color.BLACK)
 
-        player.draw(canvas, paint)
-        floorManager.draw(canvas, paint)
-        thirstBar.draw(canvas, paint)
-        collectables.draw(canvas, paint)
+        player.Draw(canvas, paint, gameTime)
+        floorManager.draw(canvas, paint, gameTime)
+        thirstBar.Draw(canvas, paint, gameTime)
+        collectables.draw(canvas, paint, gameTime)
 
         paint.color = Color.GREEN
                 paint.textSize = 50f

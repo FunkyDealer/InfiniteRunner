@@ -1,4 +1,4 @@
-package ipca.games.infiniterunner.Collectables
+package ipca.games.infiniterunner.GameObjects.Collectables
 
 import android.content.Context
 import android.graphics.Canvas
@@ -25,7 +25,7 @@ open class Collectables : GameObject {
    }
 
 
-    override fun draw(canvas : Canvas, paint : Paint) {
+    override fun Draw(canvas : Canvas, paint : Paint, gameTime: GameTime) {
 
     }
 }

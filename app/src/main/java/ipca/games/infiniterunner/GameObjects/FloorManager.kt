@@ -39,11 +39,11 @@ class FloorManager {
 
     }
 
-    fun draw(canvas : Canvas, paint : Paint){
+    fun draw(canvas : Canvas, paint : Paint, gameTime: GameTime){
 
         for (f in floorList)
         {
-            f.draw(canvas, paint)
+            f.Draw(canvas, paint, gameTime)
         }
 
     }

@@ -10,7 +10,6 @@ import ipca.games.infiniterunner.RunnerGame
 
 class Floor : GameObject {
 
-    var colliding = false
 
 
     constructor(context: Context, game: RunnerGame?, position: Vector2, screenSize : Vector2) : super(context, game, position, screenSize) {
@@ -48,13 +47,9 @@ class Floor : GameObject {
 
         collider.set(whereToDraw.toRect())
         direction = Vector2.Zero()
-        colliding = false
     }
 
-    override fun draw(canvas : Canvas, paint : Paint) {
-
-        if (colliding) paint.alpha = 127
-        else paint.alpha = 255
+    override fun Draw(canvas : Canvas, paint : Paint, gameTime: GameTime) {
 
 
         canvas.drawBitmap(bitmap, frameToDraw.toRect(), whereToDraw, paint) //Draw floor

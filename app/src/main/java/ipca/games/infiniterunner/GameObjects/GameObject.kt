@@ -10,7 +10,7 @@ open class GameObject {
 
 
     lateinit var bitmap : Bitmap
-    var game : RunnerGame? = null
+    val game : RunnerGame?
 
     var position : Vector2
     var direction : Vector2
@@ -58,11 +58,11 @@ open class GameObject {
         borderSize = screenSize
     }
 
-    open fun update(gameTime: GameTime) {
+    open fun Update(gameTime: GameTime) {
 
     }
 
-    open fun draw(canvas : Canvas, paint : Paint) {
+    open fun Draw(canvas : Canvas, paint : Paint, gameTime: GameTime) {
 
     }
 

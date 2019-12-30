@@ -1,4 +1,4 @@
-package ipca.games.infiniterunner.Collectables
+package ipca.games.infiniterunner.GameObjects.Collectables
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -7,17 +7,16 @@ import android.graphics.Paint
 import androidx.core.graphics.toRect
 import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Vector2
-import ipca.games.infiniterunner.Game
 import ipca.games.infiniterunner.R
 import ipca.games.infiniterunner.RunnerGame
 
-class Sugar : Collectables {
+class refreshment : Collectables {
 
 
     constructor(context: Context, game: RunnerGame?, position: Vector2, screenSize : Vector2) : super(context, game, position, screenSize) {
 
         bitmap = BitmapFactory.decodeResource(context.resources,
-            R.drawable.sugar
+            R.drawable.refreshment
         )
 
         frameCount = 1
@@ -33,14 +32,13 @@ class Sugar : Collectables {
 
 
         collider = whereToDraw.toRect()
-
     }
 
     override fun update(gameTime : GameTime, playerSpeed : Float) : Boolean {
 
         direction = Vector2.Left() * playerSpeed
 
-        position += direction * gameTime.Delta()
+        position += direction *  gameTime.Delta()
 
 
         getCurrentFrame()
@@ -50,7 +48,8 @@ class Sugar : Collectables {
         return exists
     }
 
-    override fun draw(canvas : Canvas, paint : Paint) {
+
+    override fun Draw(canvas : Canvas, paint : Paint, gameTime: GameTime) {
 
         canvas.drawBitmap(bitmap!!, frameToDraw.toRect(), whereToDraw, paint)
 

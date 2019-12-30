@@ -50,7 +50,7 @@ if (email != "" && inPassword != "" && inPasswordConfirm != "") {
         auth.createUserWithEmailAndPassword(email, inPassword)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
+                    // Sign in success, Update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
                     val intent = Intent(this@CreateLoginActivity, GameActivity::class.java)

@@ -35,7 +35,7 @@ class ThirstBar : GameObject {
         SetUp()
     }
 
-    override fun update(gameTime : GameTime) {
+    override fun Update(gameTime : GameTime) {
         timer += gameTime.Delta()
 
         if (timer > 6f) {
@@ -50,7 +50,7 @@ class ThirstBar : GameObject {
 
     }
 
-    override fun draw(canvas : Canvas, paint : Paint) {
+    override fun Draw(canvas : Canvas, paint : Paint, gameTime: GameTime) {
 
         for (i in 0 until thirstValue) {
             updateWhere2Draw(i)

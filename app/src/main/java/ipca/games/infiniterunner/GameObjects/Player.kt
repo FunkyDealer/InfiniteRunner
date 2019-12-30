@@ -23,7 +23,6 @@ class Player : GameObject {
 
     var jumpForce : Vector2 = Vector2.Zero()
 
-    var colliding : Boolean = false
     var jumpTimer = 0f
     var jumping = true
     var doubleJumping = false
@@ -78,7 +77,7 @@ class Player : GameObject {
 
     }
 
-    override fun update(gameTime: GameTime) {
+    override fun Update(gameTime: GameTime) {
 
         direction = Vector2.Zero() //Direction is reset each frame
 
@@ -131,12 +130,10 @@ class Player : GameObject {
 
     }
 
-    override fun draw(canvas : Canvas, paint : Paint) {
+    override fun Draw(canvas : Canvas, paint : Paint, gameTime: GameTime) {
 
         canvas.drawBitmap(bitmap, frameToDraw.toRect(), whereToDraw, paint) //Player
-
-        if (colliding) paint.color = Color.RED
-        else paint.color = Color.GREEN
+        paint.color = Color.GREEN
 
         //paint.color = Color.GREEN
         paint.textSize = 40f

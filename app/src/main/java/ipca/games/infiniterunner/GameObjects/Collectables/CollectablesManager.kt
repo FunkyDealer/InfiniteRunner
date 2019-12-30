@@ -1,11 +1,10 @@
-package ipca.games.infiniterunner.Collectables
+package ipca.games.infiniterunner.GameObjects.Collectables
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import ipca.games.infiniterunner.EngineFiles.GameTime
 import ipca.games.infiniterunner.EngineFiles.Vector2
-import ipca.games.infiniterunner.Game
 import ipca.games.infiniterunner.RunnerGame
 import java.util.*
 
@@ -66,11 +65,11 @@ class CollectablesManager {
 
     }
 
-    fun draw(canvas : Canvas, paint : Paint){
+    fun draw(canvas : Canvas, paint : Paint, gameTime: GameTime){
 
         for (c in CollectablesList)
         {
-            c.draw(canvas, paint)
+            c.Draw(canvas, paint, gameTime)
         }
 
     }
