@@ -23,11 +23,10 @@ class Floor : GameObject {
         frameSize.x = ((bitmap.width.toFloat() / frameCount) * scalar)
         frameSize.y = ((bitmap.height.toFloat() / animationCount) * scalar)
 
-        position.x *= frameSize.x
-        position.y -= frameSize.y
+        position.x *= frameSize.x //create box at correct position
+        position.y -= frameSize.y //Push box down to correct position
 
         SetUp()
-
 
         collider = whereToDraw.toRect()
     }

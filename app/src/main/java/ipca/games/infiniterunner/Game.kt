@@ -44,7 +44,7 @@ class Game : SurfaceView {
      */
     fun Update(gameTime: GameTime) {
 
-        when (gameTime.ElapsedGameTime.toMillis() > 0) {
+        when (gameTime.ElapsedGameTime.toMillis() > 0) { //Fps
             (true) -> fps = 1000 / gameTime.ElapsedGameTime.toMillis()
             (false) -> fps = 0
         }
@@ -77,7 +77,7 @@ class Game : SurfaceView {
 /*
 * Place here Motion Events
 */
-    fun MotionEventUp() {
+    fun MotionEventUp() { //When finger is off the screen
     pressedDown = false
 
     if (runnerGame.updating) runnerGame.MotionEventUp()
@@ -85,7 +85,7 @@ class Game : SurfaceView {
 
     }
 
-    fun MotionEventDown() {
+    fun MotionEventDown() { //When finger is on the screen
         pressedDown = true
 
         if (runnerGame.updating) runnerGame.MotionEventDown()

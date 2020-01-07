@@ -21,7 +21,7 @@ class GameOverScreen : Scene {
 
     override fun Update(gameTime: GameTime) {
         super.Update(gameTime)
-        timer += gameTime.Delta()
+        timer += gameTime.Delta() //Timer to allow restarting
 
         if (!reboot && timer > 1.5f) {
             reboot = true

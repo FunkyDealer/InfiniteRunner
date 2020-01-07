@@ -27,11 +27,11 @@ class CreateLoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_create_login)
 
-        auth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance() //Firebase instance
 
         username = findViewById<EditText>(R.id.newEmailEditText)
         password = findViewById<EditText>(R.id.newPassEditText)
-        passwordConfirm = findViewById<EditText>(R.id.newPassEditText2)
+        passwordConfirm = findViewById<EditText>(R.id.newPassEditText2) //pass confirmation
         val loginButton = findViewById<Button>(R.id.createUserButton)
 
         loginButton.setOnClickListener {

@@ -18,7 +18,7 @@ class FloorManager {
 
     this.game = game
 
-        for (i in 0 until 20) {
+        for (i in 0 until 20) { //Creates 20 boxes for the floor
             floorList.add(
                 Floor(
                     context!!,

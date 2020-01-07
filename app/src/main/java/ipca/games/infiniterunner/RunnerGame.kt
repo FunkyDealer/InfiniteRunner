@@ -17,7 +17,7 @@ class RunnerGame : Scene {
     var player : Player
     var floorManager : FloorManager
 
-    var gravity : Vector2 = Vector2(0f, 5f)
+    var gravity : Vector2 = Vector2(0f, 5f) //Global gravity Value
 
 
     var thirstBar : ThirstBar
@@ -111,7 +111,7 @@ class RunnerGame : Scene {
         return game.scoreManager
     }
 
-    fun reboot(scene: Scene) {
+    fun reboot(scene: Scene) { //Restart the game
         scene.SwitchActive()
         game.scoreManager.reboot()
         collectables.reboot()
